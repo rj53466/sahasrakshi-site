@@ -4,20 +4,33 @@
   const statusEl = document.getElementById('formStatus');
   if (!form || !statusEl) return;
 
+  // Stop native submission
+  form.method = 'post';
+  form.action = '#';
+
+  // Avoid double binding
   if (form.dataset.bound === '1') return;
   form.dataset.bound = '1';
 
   const submitBtn = form.querySelector('button[type="submit"]');
-
   const ready = () => (window.grecaptcha && typeof grecaptcha.getResponse === 'function');
 
   // Use local Worker in dev, same-origin in prod
-  const API_BASE = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-    ? 'http://127.0.0.1:8787'
-    : '';
+  const API_BASE =
+    (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? 'http://127.0.0.1:8787'
+      : '';
+
+  // Optional: block Enter from submitting (except textarea)
+  form.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter' && ev.target.tagName !== 'TEXTAREA') {
+      ev.preventDefault();
+    }
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (!ready()) {
       statusEl.textContent = 'Security is initializing… please try again.';
@@ -40,15 +53,26 @@
       recaptchaToken: token
     };
 
+    // Basic client validation
     if (body.name.length < 2 || body.name.length > 60) {
-      statusEl.textContent = 'Please enter a valid name.'; statusEl.style.color = '#e53e3e'; return;
+      statusEl.textContent = 'Please enter a valid name.';
+      statusEl.style.color = '#e53e3e';
+      return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email) || body.email.length > 254) {
-      statusEl.textContent = 'Please enter a valid email.'; statusEl.style.color = '#e53e3e'; return;
+      statusEl.textContent = 'Please enter a valid email.';
+      statusEl.style.color = '#e53e3e';
+      return;
     }
-    if (!body.service) { statusEl.textContent = 'Please select a service.'; statusEl.style.color = '#e53e3e'; return; }
+    if (!body.service) {
+      statusEl.textContent = 'Please select a service.';
+      statusEl.style.color = '#e53e3e';
+      return;
+    }
     if (body.message.length < 10 || body.message.length > 4000) {
-      statusEl.textContent = 'Please enter a detailed message.'; statusEl.style.color = '#e53e3e'; return;
+      statusEl.textContent = 'Please enter a detailed message.';
+      statusEl.style.color = '#e53e3e';
+      return;
     }
 
     submitBtn.disabled = true;
@@ -58,45 +82,43 @@
     statusEl.style.color = '#4a5568';
 
     try {
-  const resp = await fetch(`${API_BASE}/api/contact`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(body)
+      const resp = await fetch(`${API_BASE}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      // Read as text first to avoid JSON parse errors on HTML responses
+      const text = await resp.text();
+      let json;
+      try { json = JSON.parse(text); } catch { json = { error: text }; }
+
+      // Worker returns { success: true, message: '...' }
+      if (!resp.ok || !json.success) {
+        throw new Error(json.error || 'Failed to send message');
+      }
+
+      statusEl.textContent = 'Thank you! Your message has been sent. We’ll get back to you within 24 hours.';
+      statusEl.style.color = '#48bb78';
+      form.reset();
+      grecaptcha.reset();
+
+    } catch (err) {
+      statusEl.textContent = err.message || 'Something went wrong. Please try again or email us directly.';
+      statusEl.style.color = '#e53e3e';
+      grecaptcha.reset();
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = original;
+    }
   });
+})(); // <-- close the contact IIFE correctly
 
-  // Read as text first to avoid "Unexpected token '<'" when server returns HTML
-  const text = await resp.text();
-  let json;
-  try {
-    json = JSON.parse(text);
-  } catch {
-    // If not JSON, raise the raw text (or a generic error)
-    throw new Error(text || 'Invalid server response');
-  }
 
-  // ✅ Cloudflare Function returns { success: true, message: '...' }
-  if (!resp.ok || !json.success) {
-    throw new Error(json.error || 'Failed to send message');
-  }
-
-  statusEl.textContent = 'Thank you! Your message has been sent. We’ll get back to you within 24 hours.';
-  statusEl.style.color = '#48bb78';
-  form.reset();
-  grecaptcha.reset();
-
-} catch (err) {
-  statusEl.textContent = err.message || 'Something went wrong. Please try again or email us directly.';
-  statusEl.style.color = '#e53e3e';
-  grecaptcha.reset();
-} finally {
-  submitBtn.disabled = false;
-  submitBtn.textContent = original;
-}
-
-    /* === Mobile Menu Toggle === */
+/* === Mobile Menu Toggle === */
 (() => {
   const toggle = document.getElementById('mobileToggle');
   const desktopMenu = document.getElementById('desktop-menu');
@@ -110,6 +132,7 @@
     desktopMenu.style.gap = '12px';
   });
 })();
+
 
 /* === Footer - Year & Back to Top === */
 (() => {
@@ -130,4 +153,5 @@
   window.addEventListener('scroll', toggleBtt);
 })();
 
-console.log('%c🔒 Sahasrakshi Contact Form protected by server-side CAPTCHA verification', 'color: #4fd1c5; font-size: 14px; font-weight: bold;');
+console.log('%c🔒 Sahasrakshi Contact Form protected by server-side CAPTCHA verification',
+  'color: #4fd1c5; font-size: 14px; font-weight: bold;');
