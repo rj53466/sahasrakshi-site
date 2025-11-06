@@ -1,86 +1,65 @@
-// /api/contact (POST)
-// Bindings are configured in Cloudflare Pages → Settings → Functions → Bindings
+// functions/api/contact.js
 export async function onRequestPost(context) {
-    const { request, env } = context;
-  
-    const origin = request.headers.get('Origin') || '';
-    const allowOrigin = [env.ALLOWED_ORIGIN].includes(origin) ? origin : env.ALLOWED_ORIGIN;
-    const cors = {
-      'Access-Control-Allow-Origin': allowOrigin,
-      'Vary': 'Origin',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'content-type'
-    };
-  
-    if (request.method === 'OPTIONS') return new Response(null, { headers: cors });
-  
-    let body;
-    try { body = await request.json(); } catch { return j(400, 'Bad JSON'); }
-    const { name = '', email = '', service = '', message = '', recaptchaToken = '' } = body;
-  
-    if (!recaptchaToken) return j(400, 'Missing captcha token');
-  
-    // Verify reCAPTCHA v2 checkbox
-    const v = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  const { request, env } = context;
+
+  // ----- CORS -----
+  const origin = request.headers.get("Origin") || "";
+  const allowed = (env.ALLOWED_ORIGIN || "").split(",").map(s => s.trim()).filter(Boolean);
+  const allowOrigin = allowed.includes(origin) ? origin : (allowed[0] || "*");
+
+  const headers = {
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Content-Type": "application/json"
+  };
+
+  if (request.method === "OPTIONS") {
+    return new Response(null, { headers });
+  }
+
+  try {
+    // Parse JSON safely
+    let body = {};
+    try { body = await request.json(); } catch { /* leave {} */ }
+
+    const { name = "", email = "", service = "", message = "", recaptchaToken } = body;
+
+    if (!recaptchaToken) {
+      return new Response(JSON.stringify({ error: "Missing captcha token" }), { status: 400, headers });
+    }
+
+    // ----- Verify reCAPTCHA (v2 checkbox) -----
+    const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
         secret: env.RECAPTCHA_SECRET,
         response: recaptchaToken,
-        remoteip: request.headers.get('CF-Connecting-IP') || ''
-      })
-    }).then(r => r.json());
-  
-    if (!v.success) return j(400, 'Captcha failed');
-  
-    // Optional hostname pin
-    const validHosts = new Set(['sahasrakshi.co.in', 'www.sahasrakshi.co.in']);
-    if (v.hostname && !validHosts.has(v.hostname)) return j(400, 'Captcha host mismatch');
-  
-    // Validate
-    if (name.length < 2 || name.length > 60) return j(400, 'Invalid name');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) return j(400, 'Invalid email');
-    if (!service || service.length > 120) return j(400, 'Invalid service');
-    if (message.length < 10 || message.length > 4000) return j(400, 'Invalid message');
-  
-    // Rate limit per email (5 / hour) via KV
-    const key = `rl:${email.toLowerCase()}`;
-    const count = parseInt((await env.CONTACT_RL.get(key)) || '0', 10);
-    if (count >= 5) return j(429, 'Too many submissions, try later');
-    await env.CONTACT_RL.put(key, String(count + 1), { expirationTtl: 3600 });
-  
-    // Relay to FormSubmit (or swap to your mail/webhook)
-    const relay = await fetch('https://formsubmit.co/ajax/info@sahasrakshi.co.in', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        name, email, service, message,
-        _subject: 'New Contact Form Submission - Sahasrakshi',
-        _template: 'table'
+        remoteip: request.headers.get("CF-Connecting-IP") || ""
       })
     });
-  
-    let ok = relay.ok;
-    try {
-      const rj = await relay.json();
-      ok = ok && (rj.success === 'true');
-    } catch { /* some responses may be empty; rely on status */ }
-  
-    if (!ok) return j(502, 'Upstream send failed');
-  
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { ...cors, 'Content-Type': 'application/json',
-        'X-Content-Type-Options': 'nosniff',
-        'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
-      }
-    });
-  
-    function j(status, error) {
-      return new Response(JSON.stringify({ ok: false, error }), {
-        status, headers: { ...cors, 'Content-Type': 'application/json' }
-      });
+
+    const verify = await verifyRes.json().catch(() => ({}));
+
+    if (!verify.success) {
+      return new Response(JSON.stringify({
+        error: "Captcha verification failed",
+        details: verify
+      }), { status: 400, headers });
     }
+
+    // ✅ SUCCESS (put your email/CRM code here if needed)
+    return new Response(JSON.stringify({
+      success: true,
+      message: "CAPTCHA verified successfully"
+    }), { status: 200, headers });
+
+  } catch (err) {
+    // Never send HTML—always JSON
+    return new Response(JSON.stringify({
+      error: "Internal Server Error",
+      details: String(err?.message || err)
+    }), { status: 500, headers });
   }
-  
+}
