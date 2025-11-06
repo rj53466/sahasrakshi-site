@@ -20,7 +20,7 @@
        font-src 'self' data:;
        frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/;
        connect-src 'self';
-       form-action 'self' https://formsubmit.co;
+       form-action 'self' https://formsubmit.co https://formsubmit.co/*;
        object-src 'none';
        base-uri 'self';
        frame-ancestors 'none';
@@ -211,84 +211,72 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" aria-label="Contact Us" class="has-bg">
-      <div class="container">
-        <h2 class="section-title">Contact Us</h2>
-        <p class="section-lead">Have questions or need a cybersecurity assessment? Let's connect.</p>
-        <div class="grid cols-2 contact-grid">
-        <form 
-          id="contactForm"
-          action="https://formsubmit.co/info@sahasrakshi.co.in"
-          method="POST"
-          class="contact-form card">
-  <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60">
-  <input type="email" name="email" placeholder="Your Email" required maxlength="120">
+<section id="contact" aria-label="Contact Us" class="has-bg">
+  <div class="container">
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-lead">Have questions or need a cybersecurity assessment? Let's connect.</p>
 
-  <select name="service" required>
-    <option value="">Select a Service</option>
-    <option value="Penetration Testing">Penetration Testing</option>
-    <option value="24/7 SOC & MDR">24/7 SOC & MDR</option>
-    <option value="Incident Response">Incident Response</option>
-    <option value="Security Consulting">Security Consulting</option>
-  </select>
+    <div class="contact-grid" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
 
-  <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
+      <!-- LEFT: FORM -->
+      <form
+        id="contactForm"
+        action="https://formsubmit.co/info@sahasrakshi.co.in"
+        method="POST"
+        class="contact-form card"
+        style="flex: 1 1 48%; min-width: 320px;"
+      >
+        <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60">
+        <input type="email" name="email" placeholder="Your Email" required maxlength="120">
 
-  <!-- reCAPTCHA -->
-  <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
+        <select name="service" required>
+          <option value="">Select a Service</option>
+          <option value="Penetration Testing">Penetration Testing</option>
+          <option value="24/7 SOC & MDR">24/7 SOC & MDR</option>
+          <option value="Incident Response">Incident Response</option>
+          <option value="Security Consulting">Security Consulting</option>
+        </select>
 
-  <!-- Hidden FormSubmit controls -->
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_subject" value="New message from Sahasrakshi Contact Form">
-  <input type="hidden" name="_next" value="https://sahasrakshi.co.in/thankyou.html">
+        <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
 
-  <button type="submit" class="btn primary">Send Message</button>
-</form>
+        <!-- reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
 
-<p id="formStatus" class="form-status subtitle" role="status" aria-live="polite"></p>
+        <!-- Hidden FormSubmit controls -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="New message from Sahasrakshi Contact Form">
+        <input type="hidden" name="_next" value="https://sahasrakshi.co.in/thankyou.html">
+        <input type="text" name="_honey" style="display:none">
 
-<!-- Google reCAPTCHA script -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <button type="submit" class="btn primary">Send Message</button>
 
-<!--
-          
-          <form class="contact-form card" id="contactForm" method="post" action="#" novalidate>
-            <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60" pattern="^[A-Za-z][A-Za-z\s\.\-']{1,59}$">
-            <input type="email" name="email" placeholder="Your@email.com" required maxlength="120">
-            <select name="service" aria-label="Service" required>
-              <option value="">Select a Service</option>
-              <option>Penetration Testing</option>
-              <option>24/7 SOC & MDR</option>
-              <option>Incident Response</option>
-              <option>Security Consulting</option>
-            </select>
-            <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
+        <!-- Status message -->
+        <p id="formStatus" class="form-status subtitle" role="status" aria-live="polite" style="margin-top: 10px; text-align: center; color: #e53e3e; font-weight: 500;"></p>
 
-            <!-- reCAPTCHA v2 checkbox - ->
-            
+      </form>
 
-            <button type="submit" class="btn primary">Send Message</button>
-            <p id="formStatus" class="form-status subtle" role="status" aria-live="polite"></p>
-          </form>-->
-
-          <!-- Right: Contact Info -->
-          <div class="card contact-info">
-            <h3>Reach Us</h3>
-            <p class="subtle">
-              Email: <a href="mailto:info@sahasrakshi.co.in">info@sahasrakshi.co.in</a><br>
-              Phone: +91-00000-00000<br>
-              Address: Bengaluru, IN
-            </p>
-            <h3>Security</h3>
-            <p class="subtle">
-              Found a vulnerability?<br>
-              Email <a href="mailto:info@sahasrakshi.co.in">info@sahasrakshi.co.in</a> with details. We'll acknowledge within 48h.
-            </p>
-          </div>
-        </div>
+      <!-- RIGHT: CONTACT INFO -->
+      <div class="card contact-info" style="flex: 1 1 48%; min-width: 320px;">
+        <h3>Reach Us</h3>
+        <p class="subtle">
+          Email: <a href="mailto:info@sahasrakshi.co.in">info@sahasrakshi.co.in</a><br>
+          Phone: +91-00000-00000<br>
+          Address: Bengaluru, IN
+        </p>
+        <h3>Security</h3>
+        <p class="subtle">
+          Found a vulnerability?<br>
+          Email <a href="mailto:info@sahasrakshi.co.in">info@sahasrakshi.co.in</a> with details. We'll acknowledge within 48h.
+        </p>
       </div>
-    </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </main>
 
   <!-- FOOTER -->
