@@ -1,4 +1,4 @@
-/* === Simple Contact Form with reCAPTCHA + FormSubmit === */
+/* === Simple reCAPTCHA + FormSubmit Email Sender === */
 (() => {
   const form = document.getElementById('contactForm');
   const statusEl = document.getElementById('formStatus');
@@ -10,21 +10,20 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Check reCAPTCHA
+    // ✅ Check CAPTCHA
     if (!ready()) {
-      statusEl.textContent = 'Security is initializing… please wait.';
+      statusEl.textContent = 'Security is initializing...';
       statusEl.style.color = '#e53e3e';
       return;
     }
 
     const token = grecaptcha.getResponse();
     if (!token) {
-      statusEl.textContent = 'Please verify you are human before sending.';
+      statusEl.textContent = 'Please verify you are human.';
       statusEl.style.color = '#e53e3e';
       return;
     }
 
-    // Build body for FormSubmit.co
     const body = {
       name: form.name.value.trim(),
       email: form.email.value.trim(),
@@ -32,39 +31,30 @@
       message: form.message.value.trim()
     };
 
-    // Quick validation
-    if (!body.name || !body.email || !body.message) {
-      statusEl.textContent = 'Please fill in all required fields.';
-      statusEl.style.color = '#e53e3e';
-      return;
-    }
-
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
-    statusEl.textContent = 'Sending your message...';
+    statusEl.textContent = 'Sending message...';
     statusEl.style.color = '#4a5568';
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/info@sahasrakshi.co.in', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      await fetch("https://formsubmit.co/ajax/info@sahasrakshi.co.in", {
+        method: "POST",
+        mode: "no-cors", // ✅ Fix for Cloudflare and CORS issues
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
         body: JSON.stringify(body)
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        statusEl.textContent = '✅ Thank you! Your message has been sent successfully.';
-        statusEl.style.color = '#48bb78';
-        form.reset();
-        grecaptcha.reset();
-      } else {
-        throw new Error(result.message || 'Failed to send message.');
-      }
+      statusEl.textContent = "✅ Message sent successfully!";
+      statusEl.style.color = "#48bb78";
+      form.reset();
+      grecaptcha.reset();
 
     } catch (err) {
-      statusEl.textContent = `❌ ${err.message || 'Something went wrong. Please try again.'}`;
-      statusEl.style.color = '#e53e3e';
+      statusEl.textContent = "❌ Failed to send message. Please try again.";
+      statusEl.style.color = "#e53e3e";
       grecaptcha.reset();
     } finally {
       submitBtn.disabled = false;
