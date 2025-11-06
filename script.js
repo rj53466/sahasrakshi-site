@@ -58,33 +58,45 @@
     statusEl.style.color = '#4a5568';
 
     try {
-      const resp = await fetch(`${API_BASE}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-      const json = await resp.json();
-
-      if (!resp.ok || !json.ok) {
-        throw new Error(json.error || 'Failed to send message');
-      }
-
-      statusEl.textContent = 'Thank you! Your message has been sent. We’ll get back to you within 24 hours.';
-      statusEl.style.color = '#48bb78';
-      form.reset();
-      grecaptcha.reset();
-    } catch (err) {
-      statusEl.textContent = err.message || 'Something went wrong. Please try again or email us directly.';
-      statusEl.style.color = '#e53e3e';
-      grecaptcha.reset();
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = original;
-    }
+  const resp = await fetch(`${API_BASE}/api/contact`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(body)
   });
-})();
 
-/* === Mobile Menu Toggle === */
+  // Read as text first to avoid "Unexpected token '<'" when server returns HTML
+  const text = await resp.text();
+  let json;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    // If not JSON, raise the raw text (or a generic error)
+    throw new Error(text || 'Invalid server response');
+  }
+
+  // ✅ Cloudflare Function returns { success: true, message: '...' }
+  if (!resp.ok || !json.success) {
+    throw new Error(json.error || 'Failed to send message');
+  }
+
+  statusEl.textContent = 'Thank you! Your message has been sent. We’ll get back to you within 24 hours.';
+  statusEl.style.color = '#48bb78';
+  form.reset();
+  grecaptcha.reset();
+
+} catch (err) {
+  statusEl.textContent = err.message || 'Something went wrong. Please try again or email us directly.';
+  statusEl.style.color = '#e53e3e';
+  grecaptcha.reset();
+} finally {
+  submitBtn.disabled = false;
+  submitBtn.textContent = original;
+}
+
+    /* === Mobile Menu Toggle === */
 (() => {
   const toggle = document.getElementById('mobileToggle');
   const desktopMenu = document.getElementById('desktop-menu');
