@@ -20,7 +20,7 @@
        font-src 'self' data:;
        frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/;
        connect-src 'self';
-       form-action 'self';
+       form-action 'self' https://formsubmit.co;
        object-src 'none';
        base-uri 'self';
        frame-ancestors 'none';
@@ -216,25 +216,41 @@
         <h2 class="section-title">Contact Us</h2>
         <p class="section-lead">Have questions or need a cybersecurity assessment? Let's connect.</p>
         <div class="grid cols-2 contact-grid">
-        <form id="contactForm" class="contact-form card" novalidate>
-          <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60">
-          <input type="email" name="email" placeholder="Your Email" required maxlength="120">
-      <select name="service" required>
-        <option value="">Select a Service</option>
-        <option value="Penetration Testing">Penetration Testing</option>
-        <option value="24/7 SOC & MDR">24/7 SOC & MDR</option>
-        <option value="Incident Response">Incident Response</option>
-        <option value="Security Consulting">Security Consulting</option>
-      </select>
-      <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
+        <form 
+          id="contactForm"
+          action="https://formsubmit.co/info@sahasrakshi.co.in"
+          method="POST"
+          class="contact-form card">
+  <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60">
+  <input type="email" name="email" placeholder="Your Email" required maxlength="120">
+
+  <select name="service" required>
+    <option value="">Select a Service</option>
+    <option value="Penetration Testing">Penetration Testing</option>
+    <option value="24/7 SOC & MDR">24/7 SOC & MDR</option>
+    <option value="Incident Response">Incident Response</option>
+    <option value="Security Consulting">Security Consulting</option>
+  </select>
+
+  <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
 
   <!-- reCAPTCHA -->
-      <div class="recaptcha-container">
-          <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
-          </div>
-      <button type="submit" class="btn primary">Send Message</button>
-      <p id="formStatus" class="form-status subtitle" role="status" aria-live="polite"></p>
+  <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
+
+  <!-- Hidden FormSubmit controls -->
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_subject" value="New message from Sahasrakshi Contact Form">
+  <input type="hidden" name="_next" value="https://sahasrakshi.co.in/thankyou.html">
+
+  <button type="submit" class="btn primary">Send Message</button>
 </form>
+
+<p id="formStatus" class="form-status subtitle" role="status" aria-live="polite"></p>
+
+<!-- Google reCAPTCHA script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <!--
           
           <form class="contact-form card" id="contactForm" method="post" action="#" novalidate>
