@@ -216,6 +216,27 @@
         <h2 class="section-title">Contact Us</h2>
         <p class="section-lead">Have questions or need a cybersecurity assessment? Let's connect.</p>
         <div class="grid cols-2 contact-grid">
+        <form id="contactForm" class="contact-form card" novalidate>
+          <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60">
+          <input type="email" name="email" placeholder="Your Email" required maxlength="120">
+      <select name="service" required>
+        <option value="">Select a Service</option>
+        <option value="Penetration Testing">Penetration Testing</option>
+        <option value="24/7 SOC & MDR">24/7 SOC & MDR</option>
+        <option value="Incident Response">Incident Response</option>
+        <option value="Security Consulting">Security Consulting</option>
+      </select>
+      <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
+
+  <!-- reCAPTCHA -->
+      <div class="recaptcha-container">
+          <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
+          </div>
+      <button type="submit" class="btn primary">Send Message</button>
+      <p id="formStatus" class="form-status subtitle" role="status" aria-live="polite"></p>
+</form>
+<!--
+          
           <form class="contact-form card" id="contactForm" method="post" action="#" novalidate>
             <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60" pattern="^[A-Za-z][A-Za-z\s\.\-']{1,59}$">
             <input type="email" name="email" placeholder="Your@email.com" required maxlength="120">
@@ -228,14 +249,12 @@
             </select>
             <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
 
-            <!-- reCAPTCHA v2 checkbox -->
-            <div class="recaptcha-container">
-              <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
-            </div>
+            <!-- reCAPTCHA v2 checkbox - ->
+            
 
             <button type="submit" class="btn primary">Send Message</button>
             <p id="formStatus" class="form-status subtle" role="status" aria-live="polite"></p>
-          </form>
+          </form>-->
 
           <!-- Right: Contact Info -->
           <div class="card contact-info">
