@@ -1,4 +1,4 @@
-/* === Simple reCAPTCHA + FormSubmit Email Sender === */
+/* === Simple reCAPTCHA + FormSubmit Email Sender === 
 (() => {
   const form = document.getElementById('contactForm');
   const statusEl = document.getElementById('formStatus');
@@ -62,7 +62,25 @@
     }
   });
 })();
+*/
+/* === Contact Form (reCAPTCHA v2 + FormSubmit) === */
+(() => {
+  const form = document.getElementById('contactForm');
+  const statusEl = document.getElementById('formStatus');
+  if (!form || !statusEl) return;
 
+  form.addEventListener('submit', (e) => {
+    const token = grecaptcha.getResponse();
+    if (!token) {
+      e.preventDefault();
+      statusEl.textContent = 'Please complete the CAPTCHA.';
+      statusEl.style.color = '#e53e3e';
+      return false;
+    }
+    statusEl.textContent = 'Sending…';
+    statusEl.style.color = '#4a5568';
+  });
+})();
 
 /* === Mobile Menu Toggle === */
 (() => {
