@@ -216,18 +216,18 @@
     <h2 class="section-title">Contact Us</h2>
     <p class="section-lead">Have questions or need a cybersecurity assessment? Let's connect.</p>
 
-    <div class="contact-grid" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+    <div class="contact-grid" style="display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; align-items: flex-start;">
 
-      <!-- LEFT: FORM -->
+      <!-- LEFT: CONTACT FORM -->
       <form
         id="contactForm"
         action="https://formsubmit.co/info@sahasrakshi.co.in"
         method="POST"
         class="contact-form card"
-        style="flex: 1 1 48%; min-width: 320px;"
+        style="flex: 1 1 48%; min-width: 350px; display: flex; flex-direction: column; gap: 1rem;"
       >
-        <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60">
-        <input type="email" name="email" placeholder="Your Email" required maxlength="120">
+        <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60" />
+        <input type="email" name="email" placeholder="Your Email" required maxlength="120" />
 
         <select name="service" required>
           <option value="">Select a Service</option>
@@ -238,26 +238,20 @@
         </select>
 
         <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
+        <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v" style="align-self: center;"></div>
 
-        <!-- reCAPTCHA -->
-        <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_subject" value="New message from Sahasrakshi Contact Form" />
+        <input type="hidden" name="_next" value="https://sahasrakshi.co.in/thankyou.html" />
+        <input type="text" name="_honey" style="display: none" />
 
-        <!-- Hidden FormSubmit controls -->
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_subject" value="New message from Sahasrakshi Contact Form">
-        <input type="hidden" name="_next" value="https://sahasrakshi.co.in/thankyou.html">
-        <input type="text" name="_honey" style="display:none">
-
-        <button type="submit" class="btn primary">Send Message</button>
-
-        <!-- Status message -->
-        <p id="formStatus" class="form-status subtitle" role="status" aria-live="polite" style="margin-top: 10px; text-align: center; color: #e53e3e; font-weight: 500;"></p>
-
+        <button type="submit" class="btn primary" style="align-self: center; margin-top: 1rem;">Send Message</button>
+        <p id="formStatus" class="form-status subtitle" role="status" aria-live="polite" style="margin-top: 0.5rem; text-align: center; color: #e53e3e;"></p>
       </form>
 
       <!-- RIGHT: CONTACT INFO -->
-      <div class="card contact-info" style="flex: 1 1 48%; min-width: 320px;">
+      <div class="card contact-info" style="flex: 1 1 48%; min-width: 350px;">
         <h3>Reach Us</h3>
         <p class="subtle">
           Email: <a href="mailto:info@sahasrakshi.co.in">info@sahasrakshi.co.in</a><br>
@@ -277,7 +271,6 @@
 
 <!-- Google reCAPTCHA -->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  </main>
 
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
