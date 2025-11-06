@@ -1,0 +1,14 @@
+name = "sahasrakshi-contact"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# In dev, the worker allows localhost origins automatically.
+ALLOWED_ORIGIN = "https://sahasrakshi.co.in"
+
+[kv_namespaces]
+# Create your KV via dashboard or CLI:
+# wrangler kv:namespace create CONTACT_RL
+# Then paste the id below.
+binding = "CONTACT_RL"
+id = "REPLACE_WITH_YOUR_KV_ID"

@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Sahasrakshi Global Services | Vigilance Beyond Vision</title>
+  <meta name="description" content="Sahasrakshi Global Services — penetration testing, 24/7 SOC, incident response, and cybersecurity consulting. Secure by design for modern enterprises.">
+  <meta name="author" content="Sahasrakshi Global Services">
+  <link rel="canonical" href="https://sahasrakshi.co.in/">
+
+  <!-- ========= DEV CSP (for localhost testing) =========
+       When deploying to production, replace this meta with the PROD CSP
+       from README.md (or set a real HTTP header at Cloudflare). -->
+       <meta http-equiv="Content-Security-Policy" content="
+       default-src 'self';
+       script-src 'self' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/;
+       style-src 'self';
+       img-src 'self' data: https://www.gstatic.com/recaptcha/ https://www.google.com/;
+       font-src 'self' data:;
+       frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/;
+       connect-src 'self';
+       form-action 'self';
+       object-src 'none';
+       base-uri 'self';
+       frame-ancestors 'none';
+       upgrade-insecure-requests;
+     ">
+     
+
+  <!-- Referrer policy (prefer HTTP header in prod) -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sahasrakshi Global Services">
+  <meta property="og:description" content="Penetration Testing • 24/7 SOC • Incident Response • Cybersecurity Consulting">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sahasrakshi.co.in/">
+  <meta property="og:image" content="assets/logo.png">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Schema.org JSON-LD (non-executable) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sahasrakshi Global Services",
+    "url": "https://sahasrakshi.co.in/",
+    "logo": "https://sahasrakshi.co.in/assets/logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/sahasrakshi",
+      "https://x.com/sahasrakshi"
+    ],
+    "description": "Penetration testing, 24/7 SOC, incident response, cybersecurity consulting.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "info@sahasrakshi.co.in"
+    }
+  }
+  </script>
+
+  <!-- Styles & Scripts -->
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+  <!-- reCAPTCHA v2 checkbox API -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="Sahasrakshi Home">
+        <img src="assets/logo.png" alt="Sahasrakshi logo">
+      </a>
+      <nav aria-label="Primary">
+        <button class="mobile-toggle btn ghost" aria-expanded="false" aria-controls="desktop-menu" id="mobileToggle">Menu</button>
+        <ul id="desktop-menu">
+          <li><a href="#services" class="active">Services</a></li>
+          <li><a href="#why">Why us</a></li>
+          <li><a href="#case-studies">Case studies</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO with background video -->
+    <section class="hero" aria-label="Hero">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="assets/images/hero-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow" aria-label="Tagline">Vigilance Beyond Vision</span>
+          <h1>Penetration Testing, 24/7 SOC & Incident Response — built for speed, scale and trust.</h1>
+          <p class="lead">We help organizations harden their attack surface, detect threats in real time, and respond with precision. Outcome-focused, framework-aligned, and report-ready for your auditors.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn primary">Get a Quote</a>
+            <a href="#services" class="btn">Explore Services</a>
+          </div>
+          <div class="badges" aria-label="Compliance & Frameworks">
+            <span class="badge">OWASP | PTES | NIST</span>
+            <span class="badge">ISO 27001-aligned</span>
+            <span class="badge">MITRE ATT&CK-informed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" aria-label="Services" class="has-bg">
+      <div class="container">
+        <h2 class="section-title">Services</h2>
+        <p class="section-lead">End-to-end coverage across offensive testing, 24/7 monitoring, and rapid incident response.</p>
+        <div class="grid cols-3" role="list">
+          <article class="card" role="listitem">
+            <h3>Penetration Testing</h3>
+            <p>Web, API, Mobile, Network, Cloud. Methodologies: OWASP, PTES, etc. Clear risk ratings, repro steps, and actionable fixes.</p>
+            <ul>
+              <li>Threat-model-driven scoping</li>
+              <li>Exploit proof & screenshots</li>
+              <li>Retest included</li>
+            </ul>
+            <img class="card-image" src="assets/images/pentest.jpg" alt="Penetration testing dashboard on screen" loading="lazy">
+          </article>
+          <article class="card" role="listitem">
+            <h3>24/7 SOC & MDR</h3>
+            <p>Real-time detection & response powered by MITRE ATT&CK mapping, alert tuning, and playbooks.</p>
+            <ul>
+              <li>SIEM onboarding & tuning</li>
+              <li>EDR/XDR integrations</li>
+              <li>Runbooks & tabletop</li>
+            </ul>
+            <img class="card-image" src="assets/images/soc.jpg" alt="SOC analysts monitoring cybersecurity threats" loading="lazy">
+          </article>
+          <article class="card" role="listitem">
+            <h3>Incident Response</h3>
+            <p>Rapid response with forensics, containment, and eradication. Executive comms and regulator-ready reports.</p>
+            <ul>
+              <li>First hour triage</li>
+              <li>Containment & restoration</li>
+              <li>Root-cause & hardening</li>
+            </ul>
+            <img class="card-image" src="assets/images/ir.jpg" alt="Incident response team working on containment" loading="lazy">
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section id="why" aria-label="Why Sahasrakshi" class="has-bg">
+      <div class="container">
+        <h2 class="section-title">Why Sahasrakshi</h2>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3>Outcome-driven, not box-checking</h3>
+            <p>We align to your architecture and risk appetite, not just a checklist. Deliverables map findings to business impact.</p>
+          </div>
+          <div class="card">
+            <h3>Auditor-friendly reporting</h3>
+            <p>Executive summaries, CVSS scoring, STRIDE mapping, and remediation plans you can hand to engineering and GRC.</p>
+          </div>
+          <div class="card">
+            <h3>Secure-by-design operations</h3>
+            <p>Segregated labs, hardened tooling, least-privilege access, and continuous training for analysts & testers.</p>
+          </div>
+          <div class="card">
+            <h3>Flexible engagement models</h3>
+            <p>Fixed-scope, T&amp;M, or managed services with predictable SLAs and transparent communications.</p>
+          </div>
+        </div>
+        <div class="cta-band">
+          <div>
+            <strong>Need a proposal in 24 hours?</strong>
+            <p class="subtle">Share your scope and assets; we'll return a tailored SoW, sample report, and references.</p>
+          </div>
+          <a href="#contact" class="btn primary">Request Proposal</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="case-studies" aria-label="Case studies" class="has-bg">
+      <div class="container">
+        <h2 class="section-title">Case studies</h2>
+        <p class="section-lead">Anonymized snapshots of recent outcomes.</p>
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>Fintech API — Critical auth bypass</h3>
+            <p>Found multi-tenant JWT validation flaw; prevented cross-tenant data access. Rolled out fix within 48h.</p>
+          </article>
+          <article class="card">
+            <h3>Manufacturing SOC — Ransomware averted</h3>
+            <p>EDR detected early lateral movement; playbook led to isolation in 12 minutes. Zero data loss.</p>
+          </article>
+          <article class="card">
+            <h3>SaaS Cloud — S3 exposure</h3>
+            <p>Discovered public backups bucket; implemented SCPs &amp; BlockPublicAcls; verified via retest.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-label="Contact Us" class="has-bg">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-lead">Have questions or need a cybersecurity assessment? Let's connect.</p>
+        <div class="grid cols-2 contact-grid">
+          <form class="contact-form card" id="contactForm" novalidate>
+            <input type="text" name="name" placeholder="Your Name" required minlength="2" maxlength="60" pattern="^[A-Za-z][A-Za-z\s\.\-']{1,59}$">
+            <input type="email" name="email" placeholder="Your@email.com" required maxlength="120">
+            <select name="service" aria-label="Service" required>
+              <option value="">Select a Service</option>
+              <option>Penetration Testing</option>
+              <option>24/7 SOC & MDR</option>
+              <option>Incident Response</option>
+              <option>Security Consulting</option>
+            </select>
+            <textarea name="message" placeholder="Your Message" rows="5" required minlength="20" maxlength="4000"></textarea>
+
+            <!-- reCAPTCHA v2 checkbox -->
+            <div class="recaptcha-container">
+              <div class="g-recaptcha" data-sitekey="6LeDEgQsAAAAAM3qu_cIlCYYGR-KhUhnShY06S2v"></div>
+            </div>
+
+            <button type="submit" class="btn primary">Send Message</button>
+            <p id="formStatus" class="form-status subtle" role="status" aria-live="polite"></p>
+          </form>
+
+          <!-- Right: Contact Info -->
+          <div class="card contact-info">
+            <h3>Reach Us</h3>
+            <p class="subtle">
+              Email: <a href="mailto:info@sahasrakshi.co.in">info@sahasrakshi.co.in</a><br>
+              Phone: +91-00000-00000<br>
+              Address: Bengaluru, IN
+            </p>
+            <h3>Security</h3>
+            <p class="subtle">
+              Found a vulnerability?<br>
+              Email <a href="mailto:info@sahasrakshi.co.in">info@sahasrakshi.co.in</a> with details. We'll acknowledge within 48h.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#" aria-label="Sahasrakshi Home">
+          <img src="assets/logo.png" alt="Sahasrakshi logo">
+        </a>
+        <p class="foot-tagline">
+          Cybersecurity services for modern teams. Built in India, partnering globally.
+        </p>
+      </div>
+
+      <nav class="footer-col" aria-labelledby="footer-company">
+        <h4 id="footer-company">Company</h4>
+        <ul>
+          <li>
+            <a href="#services">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h10v2H4z" fill="currentColor"/></svg>
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="#case-studies">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8v2H8zm0 4h8v2H8z" fill="currentColor"/></svg>
+              Case studies
+            </a>
+          </li>
+          <li>
+            <a href="#contact">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 8v10a2 2 0 0 1-2 2H5l-4 4V6a2 2 0 0 1 2-2h12" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="footer-col" aria-labelledby="footer-follow">
+        <h4 id="footer-follow">Follow</h4>
+        <ul class="socials">
+          <li>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.18h.07c.67-1.2 2.3-2.47 4.73-2.47C21.6 7.71 24 10 24 14.26V24h-5v-8.65c0-2.06-.04-4.71-2.87-4.71-2.88 0-3.32 2.25-3.32 4.57V24H8z"/></svg>
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21l-6.52 7.45L22 22h-6.79l-4.42-5.74L5.6 22H3l7.07-8.08L2 2h6.91l4.08 5.48L18.244 2zM16.8 20h1.88L8.19 4H6.24L16.8 20z"/></svg>
+              X (Twitter)
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5A12 12 0 0 0 0 12.77c0 5.41 3.44 9.99 8.2 11.6.6.13.82-.27.82-.59v-2.2c-3.34.75-4.04-1.46-4.04-1.46-.55-1.44-1.35-1.82-1.35-1.82-1.1-.78.08-.77.08-.77 1.22.09 1.86 1.28 1.86 1.28 1.08 1.9 2.83 1.35 3.52 1.03.11-.81.42-1.35.76-1.66-2.66-.31-5.46-1.39-5.46-6.17 0-1.36.46-2.47 1.23-3.34-.12-.3-.53-1.56.12-3.26 0 0 1.01-.33 3.3 1.27a11.06 11.06 0 0 1 6 0c2.3-1.6 3.31-1.27 3.31-1.27.64 1.7.23 2.96.11 3.26.77.87 1.23 1.98 1.23 3.34 0 4.8-2.8 5.85-5.47 6.16.43.38.81 1.1.81 2.23v3.3c0 .33.21.73.83.6A12.28 12.28 0 0 0 24 12.77 12.27 12.27 0 0 0 12 .5z"/></svg>
+              GitHub
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <ul class="assurance">
+        <li><span class="badge">ISO 27001-aligned</span></li>
+        <li><span class="badge">OWASP Top 10</span></li>
+        <li><span class="badge">MITRE ATT&CK-informed</span></li>
+      </ul>
+      <p>© <span id="year"></span> Sahasrakshi Global Services. All rights reserved.</p>
+      <button class="back-to-top" id="backToTop" type="button" aria-label="Back to Top">↑ Back to Top</button>
+    </div>
+  </footer>
+</body>
+</html>
