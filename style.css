@@ -427,4 +427,60 @@ section.has-bg::after {
   transform: translateY(-60px);
 }
 
+/* === Contact Section Fix === */
+.contact-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  background: #111;
+  color: #eee;
+  border: 1px solid #333;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #00c2b2;
+  box-shadow: 0 0 0 1px #00c2b2;
+}
+
+.contact-form button {
+  background: #00c2b2;
+  color: #000;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 0.8rem 1.6rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: #00a899;
+}
+
+.contact-info {
+  background: #0c0c0c;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #222;
+  color: #ccc;
+}
+
+/* Stack vertically on mobile */
+@media (max-width: 768px) {
+  .contact-grid {
+    flex-direction: column;
+  }
+}
 
